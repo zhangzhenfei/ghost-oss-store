@@ -21,29 +21,29 @@ This [Ghost custom storage module](https://docs.ghost.org/docs/using-a-custom-st
   ```
   npm install ghost-oss-store
   ```
-  
+
 - Make the storage folder if it doesn't exist yet
 
   ```
-  mkdir content/storage
+  mkdir content/adapters/storage
   ```
-  
+
 - Copy the module into the right location
 
   ```
-  cp -vR node_modules/ghost-oss-store content/storage/oss-store
+  cp -vR node_modules/ghost-oss-store content/adapters/storage/oss-store
   ```
 
 ### Via Git
 
 In order to replace the storage module, the basic requirements are:
 
-- Create a new folder inside `/content` called `/storage`
+- Create a new folder inside `/content/adapters` called `/storage`
 
 - Clone this repo to `/storage`
 
   ```
-  cd [path/to/ghost]/content/storage
+  cd [path/to/ghost]/content/adapters/storage
   mkdir oss-store && cd oss-store
   git clone https://github.com/MT-Libraries/ghost-oss-store ./
   ```
@@ -61,12 +61,13 @@ In your `config.js` file, you'll need to add a new `storage` block to whichever 
 ```javascript
 storage: {
   active: 'oss-store',
-  'oss_store': {
+  'oss-store': {
     accessKeyId: 'accessKeyId',
     accessKeySecret: 'accessKeySecret',
     bucket: 'bucket',
     region: 'oss-cn-hangzhou',
-    origin: 'https://www.thonatos.com/', // if you have bind custom domain to oss bucket. or false             
+    protocol: 'https', // you site protocol http or https
+    origin: 'www.thonatos.com', // oss bucket exclude protocol
     fileKey: {
       safeString: true, // use Ghost safaString util to rename filename, e.g. Chinese to Pinyin
       prefix: 'ghost/',  // { String } will be formated by moment.js, using `[]` to escape,
